@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block title %}Qiqi's blog{% endblock %}
+
+{% block content %}
+
+{#    "title": blog.title,#}
+{#    "status" : blog.status,#}
+{#    "author" : blog.author.username,#}
+{#    "created_date" : unicode(blog.created_date),#}
+{#    "update_date" : unicode(blog.updated_date),#}
+{#    "content" : blog.content,#}
+    <script>
+        (function($){
+            Article = Backbone.Model.extend({
+
+                defaults : {
+                    id : 0,
+                    title: null,
+                    status:1,
+                   author: null,
+                    created_date: null,
+                    updated_date : null,
+                    content : null
+                },
+                initialize : function() {
+
+                }
+            });
+            ArticleCollection = Backbone.Collection.extend({
+                model:Article,
+                initialize: function(){
+                }
+            });
+            var articles = new ArticleCollection;
+            articles.fetch({
+                url: "api/blogs/", success:function(collection, response, option){
+
+                    collection.each(function(article){
+                        alert(article.get('title'));
+                    });
+                },error : function() {
+                    alert('error');
+                }
+            });
+        })(jQuery);
+
+    </script>
+
+{% endblock %}
