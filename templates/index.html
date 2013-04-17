@@ -1,52 +1,74 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-
 {% block title %}Qiqi's blog{% endblock %}
 
 {% block content %}
+    <!--blog context-->
+    <div class="span7">
+        <div class="row-fluid">
+            {% for blog in blogs %}
+                <div class="well">
+                    <h2><a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a></h2>
+                    <small class="post-date">{{ blog.created_date}}</small>
+                    <hr>
+                    <p>{{ blog.content }}</p>
+                </div>
+            {% endfor %}
+{#            <div class="well">#}
+{#                <h2><a href="#">This is my first blog ......................</a></h2>#}
+{#                <small class="post-date">2013-03-05</small>#}
+{#                <hr>#}
+{#                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>#}
+{#            </div>#}
+{##}
 
-{#    "title": blog.title,#}
-{#    "status" : blog.status,#}
-{#    "author" : blog.author.username,#}
-{#    "created_date" : unicode(blog.created_date),#}
-{#    "update_date" : unicode(blog.updated_date),#}
-{#    "content" : blog.content,#}
-    <script>
-        (function($){
-            Article = Backbone.Model.extend({
+            <div class="pagination">
+                <ul>
+                {% if pages %}
+                {% for page in pages %}
+                    {% if cur_category %}
+                        <li {% ifequal cur_page page %}class="active"{% endifequal %}><a href="{% url 'blog_category_select_page' cur_category page %}">{{ page }}</a></li>
+                    {% elif cur_time %}
+                        <li {% ifequal cur_page page %}class="active"{% endifequal %}><a href="{% url 'blog_time_select_page' cur_time page %}">{{ page }}</a></li>
+                    {% else %}
+                        <li {% ifequal cur_page page %}class="active"{% endifequal %}><a href="{% url 'blog_page' page %}">{{ page }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% endif %}
 
-                defaults : {
-                    id : 0,
-                    title: null,
-                    status:1,
-                   author: null,
-                    created_date: null,
-                    updated_date : null,
-                    content : null
-                },
-                initialize : function() {
+{#                    <li><a href="#">Prev</a></li>#}
+{#                    <li><a href="#">1</a></li>#}
+{#                    <li><a href="#">2</a></li>#}
+{#                    <li><a href="#">3</a></li>#}
+{#                    <li><a href="#">4</a></li>#}
+{#                    <li><a href="#">5</a></li>#}
+{#                    <li><a href="#">Next</a></li>#}
+                </ul>
+            </div>
+        </div>
+    </div>
 
-                }
-            });
-            ArticleCollection = Backbone.Collection.extend({
-                model:Article,
-                initialize: function(){
-                }
-            });
-            var articles = new ArticleCollection;
-            articles.fetch({
-                url: "api/blogs/", success:function(collection, response, option){
+    <!--tag and time content-->
+    <div class="span2">
+        <div class="row-fluid">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Caetory</li>
+                    {% for category in categorys %}
+                        <li {% ifequal cur_category category.title %}class="active"{% endifequal %}><a href="{% url 'blog_category_select' category.title %}">{{ category.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="well sidebar-nav">
 
-                    collection.each(function(article){
-                        alert(article.get('title'));
-                    });
-                },error : function() {
-                    alert('error');
-                }
-            });
-        })(jQuery);
-
-    </script>
-
+                <ul class="nav nav-list">
+                    <li class="nav-header">time</li>
+                    {% for time in times %}
+                        <li{% ifequal cur_time time %} class="active" {% endifequal %}><a href="{% url 'blog_time_select' time %}">{{ time }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}

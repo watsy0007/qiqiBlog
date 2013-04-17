@@ -1,4 +1,3 @@
-{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link type="text/css" href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+    <link type="text/css" href="../static/bootstrap/css/bootstrap.css" rel="stylesheet">
+
     <style type="text/css">
         body {
             padding-top: 60px;
@@ -22,8 +22,12 @@
 
         }
 
-        .sidebar-nav {
-            padding: 9px 0;
+        .blog-context {
+            min-height: 200px;
+        }
+
+        .post-comment-well .table {
+
         }
 
         @media (max-width: 980px) {
@@ -37,7 +41,7 @@
 
     </style>
 
-    <link type="text/css" href="{% static "bootstrap/css/bootstrap-responsive.css" %}" rel="stylesheet">
+    <link type="text/css" href="../static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 </head>
 <body>
 
@@ -50,15 +54,15 @@
             <!--<span class="icon-bar"></span>-->
             <!--<span class="icon-bar"></span>-->
             <!--</button>-->
-            <a class="brand" href="{% url 'blog_index' %}">QiqiBlog</a>
+            <a class="brand" href="#">QiqiBlog</a>
             <div class="nav-collapse collapse">
-                <p class="navbar-text pull-right"><a href="../admin" class="navbar-link">Admin</a>
+                <p class="navbar-text pull-right"><a href="#" class="navbar-link">Admin</a>
                 </p>
                 <ul class="nav">
-                    <li{% ifequal nav_active_index 'blog' %} class="active" {% endifequal %}><a href="{% url 'blog_blog' %}">blog</a></li>
-                    <li{% ifequal nav_active_index 'weibo' %} class="active" {% endifequal %}><a href="{% url 'blog_weibo' %}">weibo</a></li>
-                    <li{% ifequal nav_active_index 'mark' %} class="active" {% endifequal %}><a href="{% url 'blog_mark' %}">mark</a></li>
-                    <li{% ifequal nav_active_index 'about' %} class="active" {% endifequal %}><a href="{% url 'blog_about' %}">About me</a></li>
+                    <li><a href="#">blog</a></li>
+                    <li><a href="#weibo">weibo</a></li>
+                    <li><a href="#mark">mark</a></li>
+                    <li class="active"><a href="#mark">About me</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -68,25 +72,43 @@
 
 <div class="container-fluid">
     <div class="row-fluid">
-        {% block content %}
+        <!--blog context-->
+        <div class="span9">
+            <div class="hero-unit">
+                <h1>王岩</h1>
+                <div class="#like">
+                    <h3>喜欢传统文化</h3>
+                </div>
+                <hr>
 
+                <div class="#work">
+                    <h3>现就职于深圳</h3>
+                </div>
+                <hr>
 
-        {% endblock %}
+                <div class="contact">
+                    <h4>qq:258841679</h4>
+                    <h4>email:watsy0007#gmail.com</h4>
+                </div>
+            </div>
+        </div>
+
         <!--image -->
         <div class="span3">
-            <img src="{% static "images/IMG_1932.jpg" %}">
+            <img src="../static/images/IMG_1932.jpg" title="my girl friend">
         </div>
     </div>
 
     <hr>
 
     <footer>
-        <p>&copy; watsy 2013</p>
+        <p>&copy; Company 2013</p>
     </footer>
 
 </div>
 
-<script src="{% static "javascript/jquery-1.9.1.js" %}"></script>
-<script src="{% static "javascript/bootstrap.js" %}"></script>
+
+<script src="../static/javascript/jquery-1.9.1.js"></script>
+<script src="../static/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>

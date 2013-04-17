@@ -4,6 +4,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+class Category(models.Model):
+    title = models.CharField(max_length=32)
+
+    def __unicode__(self):
+        return self.title
 
 class BasePost(models.Model):
     DRAFT   = 0
@@ -29,8 +34,14 @@ class BasePost(models.Model):
         verbose_name = _(u'base post')
         ordering = ('-created_date', )
 
+    def __unicode__(self):
+        return self.author
 
 class ArticlePost(BasePost):
 
     title = models.CharField(max_length=120)
+    category = models.ForeignKey(Category, null=True, blank=True)
     content = models.TextField()
+
+    def __unicode__(self):
+        return self.title

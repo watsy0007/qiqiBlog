@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Qiqi's blog{% endblock %}
+
+{% block content %}
+    <div class="span7">
+        <div class="row-fluid">
+
+            <div class="blog-context">
+                <div class="well">
+                    <h2><a href="#">{{ blog.title }}</a></h2>
+                    <small class="post-date">{{ blog.created_date }}</small>
+                    <hr>
+                    <p>{{ blog.content }} </p>
+                </div>
+            </div>
+        </div>
+
+        <!--blog comment-->
+{#        <div class="well">#}
+{#            <div class="container-fluid">#}
+{#                <div class="span8">#}
+{#                    <table class="table">#}
+{#                        <tr>#}
+{#                            <td><a href="#">watsy0007@gmail.com</a><p>this is my first comment.<p></td>#}
+{#                        </tr>#}
+{#                    </table>#}
+{#                    <table class="table">#}
+{#                        <tr>#}
+{#                            <td><a href="#">watsy0007@gmail.com</a><p>this is my first comment.</p></td>#}
+{#                        </tr>#}
+{#                    </table>#}
+{#                </div>#}
+{##}
+{#                <div class="span4 pull-right">#}
+{#                    <form class="form">#}
+{#                        <fieldset>#}
+{#                            <input type="text" placeholder="email" class="input-large"><br>#}
+{#                            <input type="text" placeholder="username" class="input-large"><br>#}
+{#                            <textarea rows="7" placeholder="input your comment" class="input-large"></textarea><br>#}
+{#                            <button type="submit" class="btn">submit</button>#}
+{#                        </fieldset>#}
+{#                    </form>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+    </div>
+    <!--tag and time content-->
+    <div class="span2">
+        <div class="row-fluid">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Caetory</li>
+                    {% for category in categorys %}
+                        <li {% ifequal cur_category category %}class="active"{% endifequal %}><a href="#">{{ category.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="well sidebar-nav">
+
+                <ul class="nav nav-list">
+                    <li class="nav-header">time</li>
+                    {% for time in times %}
+                        <li><a href="#">{{ time }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
